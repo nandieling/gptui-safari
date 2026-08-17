@@ -1,0 +1,562 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 63;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D4AB3CEDA98F2C4447D9B97 /* target-domains.js in Resources */ = {isa = PBXBuildFile; fileRef = C9618008F87E401B5A53A388 /* target-domains.js */; };
+		154F8261452F4943C9FCAE6E /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = 24CACF71F7C328280B94693A /* options.html */; };
+		1D88C31569CC15A683F138C3 /* agsv-theme.css in Resources */ = {isa = PBXBuildFile; fileRef = A0520EF20ABFFEEBF9143D47 /* agsv-theme.css */; };
+		1E501B30C26363E9EB30C53F /* SafariPTThemeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B473C1009CE53A665EA6BC /* SafariPTThemeApp.swift */; };
+		30FDE9891D130963D3DDEFA9 /* safari-compat.css in Resources */ = {isa = PBXBuildFile; fileRef = 7230078FCA1E68B2290B1013 /* safari-compat.css */; };
+		317E858C6C811F5197DD30B8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6860445AB59C4534DB0E9974 /* ContentView.swift */; };
+		3CF45100B0897EC72A13AA46 /* options.css in Resources */ = {isa = PBXBuildFile; fileRef = 2CE43F4510BDA20EBDBF1F6D /* options.css */; };
+		45B382DD54A33D35CD3132D9 /* icon-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A8BB0572191EAA5416536 /* icon-32.png */; };
+		503BE504B3384ADE68C905F6 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = EA29089090EE97E29341BC85 /* manifest.json */; };
+		7A8D0AA176985C666F7B3306 /* themes.js in Resources */ = {isa = PBXBuildFile; fileRef = 2070FC7F5DF04B8630101590 /* themes.js */; };
+		8A3DF90A46F36DAE33240453 /* gpt-ui Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 46E8BAA4D41ACB9D9AD60B94 /* gpt-ui Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		98A524BB8C8D628DF67F2E85 /* icon-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 208AEFD454E65F1B630424BF /* icon-128.png */; };
+		B72E50D237B610FEF8A3F4C7 /* icon-16.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F9B08C499A937814F27CCF /* icon-16.png */; };
+		BF0871C579C397DA76DF3F74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F34C5305C0474D7C5072C49 /* Assets.xcassets */; };
+		BFDFFFF75BD922796B3C7F06 /* icon-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B431E91459E40BFE4539E86 /* icon-48.png */; };
+		C237DFF287D2A9D27368D4F1 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC240AF480DEEC40564198CB /* SafariWebExtensionHandler.swift */; };
+		C2916634A951E2AF231B96BE /* theme.css in Resources */ = {isa = PBXBuildFile; fileRef = 7084BB585330B97DE45122A3 /* theme.css */; };
+		D1D697441B4D94390DA7699B /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 5AD06290C6A1EFD574ED2365 /* content.js */; };
+		D976924AD8DF69298846A9DD /* site-colors.css in Resources */ = {isa = PBXBuildFile; fileRef = 6B53764F01F96537067F6065 /* site-colors.css */; };
+		DE7DA3EE99D5B72F1D9AE13F /* options.js in Resources */ = {isa = PBXBuildFile; fileRef = 9FC181CF76DD42A1DC1E5DC5 /* options.js */; };
+		F5B5EAEF4F6739FAAAB0133F /* domain-utils.js in Resources */ = {isa = PBXBuildFile; fileRef = 5059F57898A832BAA4CB3F34 /* domain-utils.js */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D3D9805F13123B82215CA3E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EEA9BCB3C109BE4D9E299B91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6D7B82CE9645B11FE15C4847;
+			remoteInfo = SafariPTThemeExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F21ED14B57B612A2A9973285 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8A3DF90A46F36DAE33240453 /* gpt-ui Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		13863672C29D5770F61B920D /* gpt-ui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gpt-ui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2070FC7F5DF04B8630101590 /* themes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = themes.js; sourceTree = "<group>"; };
+		208AEFD454E65F1B630424BF /* icon-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-128.png"; sourceTree = "<group>"; };
+		24CACF71F7C328280B94693A /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = options.html; sourceTree = "<group>"; };
+		271A8BB0572191EAA5416536 /* icon-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-32.png"; sourceTree = "<group>"; };
+		2B431E91459E40BFE4539E86 /* icon-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-48.png"; sourceTree = "<group>"; };
+		2CE43F4510BDA20EBDBF1F6D /* options.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = options.css; sourceTree = "<group>"; };
+		46E8BAA4D41ACB9D9AD60B94 /* gpt-ui Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "gpt-ui Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5059F57898A832BAA4CB3F34 /* domain-utils.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "domain-utils.js"; sourceTree = "<group>"; };
+		5AD06290C6A1EFD574ED2365 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
+		5F34C5305C0474D7C5072C49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6860445AB59C4534DB0E9974 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6B53764F01F96537067F6065 /* site-colors.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = "site-colors.css"; sourceTree = "<group>"; };
+		7084BB585330B97DE45122A3 /* theme.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = theme.css; sourceTree = "<group>"; };
+		7230078FCA1E68B2290B1013 /* safari-compat.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = "safari-compat.css"; sourceTree = "<group>"; };
+		9FC181CF76DD42A1DC1E5DC5 /* options.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = options.js; sourceTree = "<group>"; };
+		A0520EF20ABFFEEBF9143D47 /* agsv-theme.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = "agsv-theme.css"; sourceTree = "<group>"; };
+		AC240AF480DEEC40564198CB /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		B8F9B08C499A937814F27CCF /* icon-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-16.png"; sourceTree = "<group>"; };
+		C9618008F87E401B5A53A388 /* target-domains.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "target-domains.js"; sourceTree = "<group>"; };
+		D7B473C1009CE53A665EA6BC /* SafariPTThemeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariPTThemeApp.swift; sourceTree = "<group>"; };
+		EA29089090EE97E29341BC85 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		48DB3CF82E3EFF248EC6E3BD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6860445AB59C4534DB0E9974 /* ContentView.swift */,
+				D7B473C1009CE53A665EA6BC /* SafariPTThemeApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A5EB31806D358D1D74E260AE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13863672C29D5770F61B920D /* gpt-ui.app */,
+				46E8BAA4D41ACB9D9AD60B94 /* gpt-ui Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D8F7D4B5B18EF9B7B7209AE1 = {
+			isa = PBXGroup;
+			children = (
+				5F34C5305C0474D7C5072C49 /* Assets.xcassets */,
+				48DB3CF82E3EFF248EC6E3BD /* App */,
+				F025B9144C3635706F015364 /* Extension */,
+				FEA11C2F5583C1775EF11448 /* gptui-safari */,
+				A5EB31806D358D1D74E260AE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E2C1ED8EDE11BDCAAF2CCEFE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5AD06290C6A1EFD574ED2365 /* content.js */,
+				5059F57898A832BAA4CB3F34 /* domain-utils.js */,
+				B8F9B08C499A937814F27CCF /* icon-16.png */,
+				271A8BB0572191EAA5416536 /* icon-32.png */,
+				2B431E91459E40BFE4539E86 /* icon-48.png */,
+				208AEFD454E65F1B630424BF /* icon-128.png */,
+				EA29089090EE97E29341BC85 /* manifest.json */,
+				2CE43F4510BDA20EBDBF1F6D /* options.css */,
+				24CACF71F7C328280B94693A /* options.html */,
+				9FC181CF76DD42A1DC1E5DC5 /* options.js */,
+				C9618008F87E401B5A53A388 /* target-domains.js */,
+				2070FC7F5DF04B8630101590 /* themes.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F025B9144C3635706F015364 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				AC240AF480DEEC40564198CB /* SafariWebExtensionHandler.swift */,
+				E2C1ED8EDE11BDCAAF2CCEFE /* Resources */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FEA11C2F5583C1775EF11448 /* gptui-safari */ = {
+			isa = PBXGroup;
+			children = (
+				A0520EF20ABFFEEBF9143D47 /* agsv-theme.css */,
+				7230078FCA1E68B2290B1013 /* safari-compat.css */,
+				6B53764F01F96537067F6065 /* site-colors.css */,
+				7084BB585330B97DE45122A3 /* theme.css */,
+			);
+			name = "gptui-safari";
+			path = ..;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6CA98B0F6727C39295C06A20 /* SafariPTTheme */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B81310708A1152563D2E1194 /* Build configuration list for PBXNativeTarget "SafariPTTheme" */;
+			buildPhases = (
+				1454C0637695AB6E875D79A5 /* Sources */,
+				C680FD5B2AEC3C1239CB5148 /* Resources */,
+				F21ED14B57B612A2A9973285 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				44AB51F78FF67299CABF6032 /* PBXTargetDependency */,
+			);
+			name = SafariPTTheme;
+			packageProductDependencies = (
+			);
+			productName = SafariPTTheme;
+			productReference = 13863672C29D5770F61B920D /* gpt-ui.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6D7B82CE9645B11FE15C4847 /* SafariPTThemeExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD13CB334E738EA5272C1C12 /* Build configuration list for PBXNativeTarget "SafariPTThemeExtension" */;
+			buildPhases = (
+				5B0A30CEF56D63ED46FD1FA9 /* Sources */,
+				BF95B2DB51A6B8AA7AFAF176 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SafariPTThemeExtension;
+			packageProductDependencies = (
+			);
+			productName = SafariPTThemeExtension;
+			productReference = 46E8BAA4D41ACB9D9AD60B94 /* gpt-ui Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EEA9BCB3C109BE4D9E299B91 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					6CA98B0F6727C39295C06A20 = {
+						ProvisioningStyle = Automatic;
+					};
+					6D7B82CE9645B11FE15C4847 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = B8027B9DA5F77EFBE902CD90 /* Build configuration list for PBXProject "SafariPTTheme" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = D8F7D4B5B18EF9B7B7209AE1;
+			minimizedProjectReferenceProxies = 1;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6CA98B0F6727C39295C06A20 /* SafariPTTheme */,
+				6D7B82CE9645B11FE15C4847 /* SafariPTThemeExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BF95B2DB51A6B8AA7AFAF176 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D88C31569CC15A683F138C3 /* agsv-theme.css in Resources */,
+				D1D697441B4D94390DA7699B /* content.js in Resources */,
+				F5B5EAEF4F6739FAAAB0133F /* domain-utils.js in Resources */,
+				98A524BB8C8D628DF67F2E85 /* icon-128.png in Resources */,
+				B72E50D237B610FEF8A3F4C7 /* icon-16.png in Resources */,
+				45B382DD54A33D35CD3132D9 /* icon-32.png in Resources */,
+				BFDFFFF75BD922796B3C7F06 /* icon-48.png in Resources */,
+				503BE504B3384ADE68C905F6 /* manifest.json in Resources */,
+				3CF45100B0897EC72A13AA46 /* options.css in Resources */,
+				154F8261452F4943C9FCAE6E /* options.html in Resources */,
+				DE7DA3EE99D5B72F1D9AE13F /* options.js in Resources */,
+				30FDE9891D130963D3DDEFA9 /* safari-compat.css in Resources */,
+				D976924AD8DF69298846A9DD /* site-colors.css in Resources */,
+				0D4AB3CEDA98F2C4447D9B97 /* target-domains.js in Resources */,
+				C2916634A951E2AF231B96BE /* theme.css in Resources */,
+				7A8D0AA176985C666F7B3306 /* themes.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C680FD5B2AEC3C1239CB5148 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF0871C579C397DA76DF3F74 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1454C0637695AB6E875D79A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				317E858C6C811F5197DD30B8 /* ContentView.swift in Sources */,
+				1E501B30C26363E9EB30C53F /* SafariPTThemeApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B0A30CEF56D63ED46FD1FA9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C237DFF287D2A9D27368D4F1 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		44AB51F78FF67299CABF6032 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6D7B82CE9645B11FE15C4847 /* SafariPTThemeExtension */;
+			targetProxy = D3D9805F13123B82215CA3E5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		205311EA05EC9E4BEF05C7CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SafariPTThemeExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				INFOPLIST_FILE = Extension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = tech.areyouok.gptui.safari.extension;
+				PRODUCT_NAME = "gpt-ui Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		2D09AA2AF82DFFD33CFEDDD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		482C5FA30A37A4F0BA095805 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SafariPTThemeExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				INFOPLIST_FILE = Extension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = tech.areyouok.gptui.safari.extension;
+				PRODUCT_NAME = "gpt-ui Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A78F819070425AA237E5BDC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SafariPTTheme.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = tech.areyouok.gptui.safari;
+				PRODUCT_NAME = "gpt-ui";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B4B1393054CA5C440E8B6B5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F8C82B753FD50C3567684DAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SafariPTTheme.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = tech.areyouok.gptui.safari;
+				PRODUCT_NAME = "gpt-ui";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B8027B9DA5F77EFBE902CD90 /* Build configuration list for PBXProject "SafariPTTheme" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4B1393054CA5C440E8B6B5F /* Debug */,
+				2D09AA2AF82DFFD33CFEDDD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B81310708A1152563D2E1194 /* Build configuration list for PBXNativeTarget "SafariPTTheme" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8C82B753FD50C3567684DAD /* Debug */,
+				A78F819070425AA237E5BDC3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DD13CB334E738EA5272C1C12 /* Build configuration list for PBXNativeTarget "SafariPTThemeExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				482C5FA30A37A4F0BA095805 /* Debug */,
+				205311EA05EC9E4BEF05C7CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EEA9BCB3C109BE4D9E299B91 /* Project object */;
+}
