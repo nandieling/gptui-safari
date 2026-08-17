@@ -1,0 +1,16 @@
+.DS_Store
+build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Private PT download URL containing a cuhash value
+5796E0DC-BE29-47F6-A0B1-DB60603EB600.md
+
+# Local signing and environment files
+*.p12
+*.provisionprofile
+*.mobileprovision
+.env
+.env.*
+!.env.example
