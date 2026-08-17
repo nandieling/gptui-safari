@@ -1,6 +1,6 @@
 # 🎨 gpt-ui
 
-原版https://github.com/gangz1o/gptui的移植safari版。
+原版https://github.com/gangz1o/gptui 的移植safari版。
 功能为 NP 架构站点打造现代化 UI，优化视觉体验 图标, 布局, 动画, 全新设计
 A modern UI makeover for NP-based torrent sites.
 
