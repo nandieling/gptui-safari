@@ -148,11 +148,7 @@ html[data-gptui-site='blutopia.cc'] :is(table, th, td, .border, .border-gray-700
 	border-color: var(--gptui-site-border) !important;
 }
 
-html[data-gptui-site='greatposterwall.com'] :is(input, select, textarea, .form-control, .form-select),
-html[data-gptui-site='oldtoons.world'] :is(input, select, textarea, .form-control, .form-select),
-html[data-gptui-site='seedpool.org'] :is(input, select, textarea, .form-control, .form-select),
-html[data-gptui-site='darkland.top'] :is(input, select, textarea, .form-control, .form-select),
-html[data-gptui-site='blutopia.cc'] :is(input, select, textarea, .form-control, .form-select) {
+html[data-gptui-color-only='true'] :is(input, select, textarea, .form-control, .form-select) {
 	background-color: var(--gptui-site-surface-soft) !important;
 	border-color: var(--gptui-site-border) !important;
 	color: var(--gptui-site-text) !important;
@@ -176,4 +172,162 @@ html[data-gptui-site='blutopia.cc'] :is(.badge, .badge-primary, .tag, .label) {
 	background-color: var(--gptui-site-surface-soft) !important;
 	border-color: var(--gptui-site-border) !important;
 	color: var(--gptui-site-link) !important;
+}
+
+/* -------------------------------------------------------------------------
+ * Color-only tier, part two: engines outside the NexusPHP family.
+ *
+ * UNIT3D (aither.cc, generation-free.org), Gazelle (anthelion.me, lst.gg,
+ * nebulance.io, www.myanonamouse.net), FileList and the custom layouts below
+ * already run a dark layout of their own, so this tier does not repaint them:
+ * the palette feeds the shared rules at the bottom of the file, and each page
+ * keeps its own surfaces. Every value below was sampled from that site's own
+ * index page.
+ */
+
+html[data-gptui-site='aither.cc'] {
+	--gptui-site-background: #0d1117;
+	--gptui-site-surface: #161b23;
+	--gptui-site-surface-soft: #1e2530;
+	--gptui-site-border: #2d3746;
+	--gptui-site-text: #e6edf3;
+	--gptui-site-muted: #96a5b5;
+	--gptui-site-link: #7fb2e8;
+	--gptui-site-link-hover: #f0b26b;
+	--gptui-site-accent: #3763b6;
+	--gptui-site-on-accent: #f4f8fb;
+	color-scheme: dark;
+}
+
+html[data-gptui-site='animez.to'] {
+	--gptui-site-background: #05060a;
+	--gptui-site-surface: #0e1017;
+	--gptui-site-surface-soft: #161a24;
+	--gptui-site-border: #282f3d;
+	--gptui-site-text: #e7ebf2;
+	--gptui-site-muted: #9aa4b6;
+	--gptui-site-link: #96aac8;
+	--gptui-site-link-hover: #e8c07a;
+	--gptui-site-accent: #96aac8;
+	--gptui-site-on-accent: #0a0d14;
+	color-scheme: dark;
+}
+
+html[data-gptui-site='anthelion.me'] {
+	--gptui-site-background: #151515;
+	--gptui-site-surface: #1e1e1e;
+	--gptui-site-surface-soft: #272727;
+	--gptui-site-border: #3a3a3a;
+	--gptui-site-text: #f2f2f2;
+	--gptui-site-muted: #a4a4a4;
+	--gptui-site-link: #cccccc;
+	--gptui-site-link-hover: #ffffff;
+	--gptui-site-accent: #d0d0d0;
+	--gptui-site-on-accent: #151515;
+	color-scheme: dark;
+}
+
+html[data-gptui-site='filelist.io'] {
+	--gptui-site-background: #212121;
+	--gptui-site-surface: #2a2a2a;
+	--gptui-site-surface-soft: #333333;
+	--gptui-site-border: #474747;
+	--gptui-site-text: #ececec;
+	--gptui-site-muted: #a8a8a8;
+	--gptui-site-link: #7fb2e8;
+	--gptui-site-link-hover: #f0b26b;
+	--gptui-site-accent: #4a8fd4;
+	--gptui-site-on-accent: #0d1520;
+	color-scheme: dark;
+}
+
+html[data-gptui-site='generation-free.org'] {
+	--gptui-site-background: #02040d;
+	--gptui-site-surface: #0b0e18;
+	--gptui-site-surface-soft: #141826;
+	--gptui-site-border: #293154;
+	--gptui-site-text: #f7f5ff;
+	--gptui-site-muted: #a3a8c4;
+	--gptui-site-link: #7fb2e8;
+	--gptui-site-link-hover: #f0b26b;
+	--gptui-site-accent: #3763b6;
+	--gptui-site-on-accent: #f4f8fb;
+	color-scheme: dark;
+}
+
+html[data-gptui-site='lst.gg'] {
+	--gptui-site-background: #0c0f14;
+	--gptui-site-surface: #151922;
+	--gptui-site-surface-soft: #1d2230;
+	--gptui-site-border: #2d3546;
+	--gptui-site-text: #e6edf3;
+	--gptui-site-muted: #96a5b5;
+	--gptui-site-link: #7fb2e8;
+	--gptui-site-link-hover: #f0b26b;
+	--gptui-site-accent: #4a7fb5;
+	--gptui-site-on-accent: #f4f8fb;
+	color-scheme: dark;
+}
+
+html[data-gptui-site='nebulance.io'] {
+	--gptui-site-background: #151515;
+	--gptui-site-surface: #1e1e1e;
+	--gptui-site-surface-soft: #272727;
+	--gptui-site-border: #3a3a3a;
+	--gptui-site-text: #e8e8e8;
+	--gptui-site-muted: #a4a4a4;
+	--gptui-site-link: #a9b6c6;
+	--gptui-site-link-hover: #ffffff;
+	--gptui-site-accent: #757575;
+	--gptui-site-on-accent: #f2f2f2;
+	color-scheme: dark;
+}
+
+html[data-gptui-site='www.myanonamouse.net'] {
+	--gptui-site-background: #202020;
+	--gptui-site-surface: #292929;
+	--gptui-site-surface-soft: #323232;
+	--gptui-site-border: #454545;
+	--gptui-site-text: #aaaaaa;
+	--gptui-site-muted: #8f8f8f;
+	--gptui-site-link: #bbaa77;
+	--gptui-site-link-hover: #d8c48f;
+	--gptui-site-accent: #bbaa77;
+	--gptui-site-on-accent: #202020;
+	color-scheme: dark;
+}
+
+html[data-gptui-site='www.torrentleech.cc'] {
+	--gptui-site-background: #0f0f0f;
+	--gptui-site-surface: #181818;
+	--gptui-site-surface-soft: #212121;
+	--gptui-site-border: #343434;
+	--gptui-site-text: #f5f5f5;
+	--gptui-site-muted: #a0a0a0;
+	--gptui-site-link: #978f8f;
+	--gptui-site-link-hover: #d8cfae;
+	--gptui-site-accent: #8fa3b8;
+	--gptui-site-on-accent: #0f1418;
+	color-scheme: dark;
+}
+
+/* Zhuque is the one preset site in this tier with a light layout. */
+html[data-gptui-site='zhuque.in'] {
+	--gptui-site-background: #f1fafa;
+	--gptui-site-surface: #ffffff;
+	--gptui-site-surface-soft: #e6f1f1;
+	--gptui-site-border: #cbdcdd;
+	--gptui-site-text: #1c1c1c;
+	--gptui-site-muted: #5f6b6b;
+	--gptui-site-link: #1f6f8b;
+	--gptui-site-link-hover: #c05a3c;
+	--gptui-site-accent: #1f6f8b;
+	--gptui-site-on-accent: #f4f8fb;
+	color-scheme: light;
+}
+
+/* Text inputs are the one control every engine in this tier gets wrong once a
+ * dark page inherits the light widget palette, so they follow the site. */
+html[data-gptui-color-only='true'] ::placeholder {
+	color: var(--gptui-site-muted);
 }

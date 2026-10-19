@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "gpt-ui",
+  "version": "1.1",
+  "description": "为 NexusPHP 架构 PT 站点打造的现代界面主题，主题资源全部本地加载。",
+  "minimum_chrome_version": "114",
+  "icons": {
+    "16": "icon-16.png",
+    "32": "icon-32.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "domain-utils.js",
+        "target-domains.js",
+        "themes.js",
+        "content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "action": {
+    "default_title": "gpt-ui 设置",
+    "default_icon": {
+      "16": "icon-16.png",
+      "32": "icon-32.png",
+      "48": "icon-48.png",
+      "128": "icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "theme.css",
+        "agsv-theme.css",
+        "safari-compat.css",
+        "site-colors.css"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}

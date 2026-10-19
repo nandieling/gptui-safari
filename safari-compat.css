@@ -20,6 +20,9 @@ body {
 	width: 100% !important;
 	max-width: 100%;
 	min-width: 0 !important;
+	/* Sites inherit the 8px body gutter; it pushes full-width layout past the viewport. */
+	margin-left: 0 !important;
+	margin-right: 0 !important;
 	height: auto !important;
 	min-height: 100dvh !important;
 	overflow-x: hidden !important;
@@ -2020,7 +2023,7 @@ html:is(
 	[data-gptui-site='cyanbug.net'],
 	[data-gptui-site='byr.pt'],
 	[data-gptui-site='tjupt.org']
-)[data-gptui-site] :is(table#info_block, table[data-gptui-info-block]) td br {
+)[data-gptui-site] :is(table#info_block, table[data-gptui-info-block]):not(:has(> tbody > tr > :is(td, th):only-child > table)) td br {
 	display: block !important;
 }
 
@@ -2029,7 +2032,7 @@ html:is(
 	[data-gptui-site='cyanbug.net'],
 	[data-gptui-site='byr.pt'],
 	[data-gptui-site='tjupt.org']
-)[data-gptui-site] :is(table#info_block, table[data-gptui-info-block]) td img {
+)[data-gptui-site] :is(table#info_block, table[data-gptui-info-block]):not(:has(> tbody > tr > :is(td, th):only-child > table)) td img {
 	display: inline-block !important;
 	width: auto !important;
 	height: auto !important;
@@ -2044,13 +2047,13 @@ html:is(
 	[data-gptui-site='cyanbug.net'],
 	[data-gptui-site='byr.pt'],
 	[data-gptui-site='tjupt.org']
-)[data-gptui-site] :is(table#info_block, table[data-gptui-info-block]) > tbody > tr > td:last-child img,
+)[data-gptui-site] :is(table#info_block, table[data-gptui-info-block]):not(:has(> tbody > tr > :is(td, th):only-child > table)) > tbody > tr > td:last-child img,
 html:is(
 	[data-gptui-site='open.cd'],
 	[data-gptui-site='cyanbug.net'],
 	[data-gptui-site='byr.pt'],
 	[data-gptui-site='tjupt.org']
-)[data-gptui-site] :is(table#info_block, table[data-gptui-info-block]) > tbody > tr > th:last-child img {
+)[data-gptui-site] :is(table#info_block, table[data-gptui-info-block]):not(:has(> tbody > tr > :is(td, th):only-child > table)) > tbody > tr > th:last-child img {
 	max-width: 20px !important;
 	max-height: 20px !important;
 	margin: 0 2px !important;
@@ -4616,20 +4619,20 @@ html[data-gptui-safari-theme] table#info_block > tbody > tr {
 	background: rgba(255, 255, 255, 0.76) !important;
 }
 
-html[data-gptui-safari-theme] table#info_block td {
+html[data-gptui-safari-theme] table#info_block > tbody > tr > td {
 	box-sizing: border-box !important;
 	vertical-align: middle !important;
 	min-width: 0 !important;
 	max-width: 100% !important;
-	overflow-wrap: anywhere !important;
+	overflow-wrap: break-word !important;
 }
 
-html[data-gptui-safari-theme] table#info_block td:first-child {
+html[data-gptui-safari-theme] table#info_block > tbody > tr > td:first-child {
 	width: 70% !important;
 	padding-left: 8px !important;
 }
 
-html[data-gptui-safari-theme] table#info_block td:last-child {
+html[data-gptui-safari-theme] table#info_block > tbody > tr > td:last-child {
 	width: 30% !important;
 	max-width: 440px !important;
 	padding-right: 18px !important;
@@ -4857,29 +4860,90 @@ html[data-gptui-safari-theme] #mainmenu > li > a {
 html[data-gptui-safari-theme] .ddsubmenustyle,
 html[data-gptui-safari-theme] .dropmenu,
 html[data-gptui-safari-theme] [data-gptui-dropdown] {
-	position: absolute !important;
-	top: 100% !important;
-	left: 0 !important;
-	right: auto !important;
-	bottom: auto !important;
 	width: max-content !important;
 	min-width: 132px !important;
 	max-width: min(300px, calc(100vw - 16px)) !important;
 	max-height: min(68vh, 520px) !important;
 	height: auto !important;
 	min-height: 0 !important;
-	overflow: auto !important;
-	contain: layout paint !important;
+	overflow: visible !important;
+	contain: layout style !important;
 	white-space: normal !important;
 	transform: none !important;
 }
 
-html[data-gptui-safari-theme] [data-gptui-dropdown-edge='right'] {
+/* NexusPHP's ddlevelsmenu moves every submenu into a wrapper it appends to the
+ * end of <body>, then writes the coordinates on that wrapper and resizes the
+ * wrapper to the menu while the menu animates open.  A percentage offset there
+ * is one menu height too low, which is why those flyouts landed off screen.  A
+ * scripted menu stays on the origin of its own wrapper; only the menus we
+ * anchor to a nav item drop below that item. */
+
+html[data-gptui-safari-theme] [data-gptui-dropdown-shell] {
+	z-index: 199999 !important;
+}
+
+/* A menu a script positions with fixed coordinates keeps that scheme: an
+ * offset relative to the viewport is not ours to rewrite. */
+
+html[data-gptui-safari-theme] .ddsubmenustyle,
+html[data-gptui-safari-theme] .dropmenu,
+html[data-gptui-safari-theme] [data-gptui-dropdown-shell] > [data-gptui-dropdown],
+html[data-gptui-safari-theme] [data-gptui-dropdown-anchor='li'] {
+	position: absolute !important;
+}
+
+html[data-gptui-safari-theme] [data-gptui-dropdown-anchor='li'] {
+	top: 100% !important;
+	left: 0 !important;
+	right: auto !important;
+	bottom: auto !important;
+}
+
+html[data-gptui-safari-theme] [data-gptui-dropdown-shell] > [data-gptui-dropdown] {
+	top: 0 !important;
+	left: 0 !important;
+	right: auto !important;
+	bottom: auto !important;
+}
+
+/* Only a menu that genuinely does not fit keeps its own scrollbar.  The hover
+ * bridge and the sub level flyouts of every shorter menu have to stay outside
+ * the box, so paint containment applies to the scrolling menus alone. */
+
+html[data-gptui-safari-theme] [data-gptui-dropdown][data-gptui-dropdown-scroll='true'] {
+	overflow: auto !important;
+	contain: layout paint !important;
+}
+
+/* The bar that carries the nav also clips the floats of its own list, and that
+ * same clip swallowed the flyout of the item inside it, so those menus stayed
+ * invisible on hover. A wrapper that cuts a menu open stops clipping. */
+
+html[data-gptui-safari-theme] [data-gptui-menu-clip='true'] {
+	overflow: visible !important;
+}
+
+/* A flyout that keeps the site's own dark surface cannot carry the dark text
+ * the theme uses for its light nav bar, or the menu reads as an empty box. */
+
+html[data-gptui-safari-theme] [data-gptui-dropdown][data-gptui-dropdown-tone='dark'] li > a,
+html[data-gptui-safari-theme] [data-gptui-dropdown][data-gptui-dropdown-tone='dark'] li > span {
+	color: #eef4fb !important;
+}
+
+html[data-gptui-safari-theme] [data-gptui-dropdown][data-gptui-dropdown-tone='dark'] li > a:hover,
+html[data-gptui-safari-theme] [data-gptui-dropdown][data-gptui-dropdown-tone='dark'] li.selected > a {
+	color: #fff !important;
+	background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-gptui-safari-theme] [data-gptui-dropdown][data-gptui-dropdown-edge='right'] {
 	left: auto !important;
 	right: 0 !important;
 }
 
-html[data-gptui-safari-theme] [data-gptui-dropdown-placement='top'] {
+html[data-gptui-safari-theme] [data-gptui-dropdown][data-gptui-dropdown-placement='top'] {
 	top: auto !important;
 	bottom: 100% !important;
 }
@@ -4941,8 +5005,8 @@ html[data-gptui-safari-theme] table[data-gptui-info-block] > tbody > tr {
 	padding: 8px 12px !important;
 }
 
-html[data-gptui-safari-theme] table#info_block td,
-html[data-gptui-safari-theme] table[data-gptui-info-block] td {
+html[data-gptui-safari-theme] table#info_block > tbody > tr > td,
+html[data-gptui-safari-theme] table[data-gptui-info-block] > tbody > tr > td {
 	display: table-cell !important;
 	width: auto !important;
 	min-width: 0 !important;
@@ -4964,13 +5028,13 @@ html[data-gptui-safari-theme] table[data-gptui-info-block] td:last-child {
 	text-align: left !important;
 }
 
-html[data-gptui-safari-theme] table#info_block td:first-child,
-html[data-gptui-safari-theme] table[data-gptui-info-block] td:first-child {
+html[data-gptui-safari-theme] table#info_block > tbody > tr > td:first-child,
+html[data-gptui-safari-theme] table[data-gptui-info-block] > tbody > tr > td:first-child {
 	width: 85% !important;
 }
 
-html[data-gptui-safari-theme] table#info_block td:last-child,
-html[data-gptui-safari-theme] table[data-gptui-info-block] td:last-child {
+html[data-gptui-safari-theme] table#info_block > tbody > tr > td:last-child,
+html[data-gptui-safari-theme] table[data-gptui-info-block] > tbody > tr > td:last-child {
 	width: 15% !important;
 	max-width: 440px !important;
 	font-size: 12px !important;
@@ -4978,8 +5042,8 @@ html[data-gptui-safari-theme] table[data-gptui-info-block] td:last-child {
 	word-break: normal !important;
 }
 
-html[data-gptui-safari-theme] table#info_block td:first-child br,
-html[data-gptui-safari-theme] table[data-gptui-info-block] td:first-child br {
+html[data-gptui-safari-theme] table#info_block > tbody > tr > td:not(:has(> table)):first-child br,
+html[data-gptui-safari-theme] table[data-gptui-info-block] > tbody > tr > td:not(:has(> table)):first-child br {
 	display: none !important;
 }
 
@@ -7673,6 +7737,13 @@ html[data-gptui-site='pterclub.net'] table[data-gptui-layout='pterclub'] .gptui-
 	padding-left: var(--gptui-pterclub-title-offset, 0px) !important;
 }
 
+/* When the artwork sits in its own column of the title's inner table, that
+ * column is the indent already; pushing the meta line again left the title
+ * block hanging in the middle of the cell. */
+html[data-gptui-site='pterclub.net'] table[data-gptui-layout='pterclub'] .gptui-title-cell :is(table, td) .gptui-title-meta {
+	padding-left: 0 !important;
+}
+
 html[data-gptui-site='pterclub.net'] table[data-gptui-layout='pterclub'] .gptui-title-meta .gptui-free-badge,
 html[data-gptui-site='pterclub.net'] table[data-gptui-layout='pterclub'] .gptui-title-meta .gptui-free-time {
 	position: static !important;
@@ -9874,6 +9945,27 @@ html[data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][dat
 	overflow: visible !important;
 }
 
+/* The wrapper row is a fixed layout table, so three auto columns split the
+ * title cell into equal thirds and the long title lands on a third of the
+ * width beside an emptied action column. Keep only the title track flexible:
+ * a rating block that is still in place keeps its own column, and the cells
+ * the control rail emptied collapse so the title reaches the rail. */
+
+html[data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'] table[data-gptui-layout='btschool'] .gptui-title-cell table.gptui-title-wrapper-table > tbody > tr > td:not(:first-child),
+html[data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'] table[data-gptui-layout='btschool'] .gptui-title-cell table.gptui-title-wrapper-table > tbody > tr > th:not(:first-child) {
+	width: 22px !important;
+}
+
+html[data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'] table[data-gptui-layout='btschool'] .gptui-title-cell table.gptui-title-wrapper-table > tbody > tr > td:not(:first-child):has(img),
+html[data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'] table[data-gptui-layout='btschool'] .gptui-title-cell table.gptui-title-wrapper-table > tbody > tr > th:not(:first-child):has(img) {
+	width: 50px !important;
+}
+
+html[data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'] table[data-gptui-layout='btschool'] .gptui-title-cell table.gptui-title-wrapper-table > tbody > tr > td:not(:first-child):not(:has(:not(br))),
+html[data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'] table[data-gptui-layout='btschool'] .gptui-title-cell table.gptui-title-wrapper-table > tbody > tr > th:not(:first-child):not(:has(:not(br))) {
+	width: 0 !important;
+}
+
 html[data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'] table[data-gptui-layout='btschool'] .gptui-title-cell,
 html[data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'][data-gptui-site='pt.btschool.club'] table[data-gptui-layout='btschool'] .gptui-title-cell *:not(img):not(svg) {
 	font-size: 12px !important;
@@ -9975,6 +10067,24 @@ html[data-gptui-site='et8.org'][data-gptui-site='et8.org'][data-gptui-site='et8.
 	max-width: 100% !important;
 	overflow: hidden !important;
 	text-align: center !important;
+}
+
+/* ET8 and UltraHD title cells are the action rail's containing block. The
+ * shared native-geometry rules force every row cell to static and give the
+ * title a flat padding, which let the rail drift to the page edge and let long
+ * titles run underneath the download and bookmark icons. */
+
+html[data-gptui-site='et8.org'][data-gptui-site='et8.org'][data-gptui-site='et8.org'][data-gptui-site='et8.org'] table[data-gptui-layout='et8'] .gptui-title-cell[data-gptui-control-rail='true'],
+html[data-gptui-site='ultrahd.net'][data-gptui-site='ultrahd.net'][data-gptui-site='ultrahd.net'][data-gptui-site='ultrahd.net'] table[data-gptui-layout='ultrahd'] .gptui-title-cell[data-gptui-control-rail='true'] {
+	position: relative !important;
+	padding: 5px calc(var(--gptui-control-rail-space, 0px) + 8px) 5px 4px !important;
+}
+
+@media (max-width: 900px) {
+	html[data-gptui-site='et8.org'][data-gptui-site='et8.org'][data-gptui-site='et8.org'][data-gptui-site='et8.org'] table[data-gptui-layout='et8'] .gptui-title-cell[data-gptui-control-rail='true'],
+	html[data-gptui-site='ultrahd.net'][data-gptui-site='ultrahd.net'][data-gptui-site='ultrahd.net'][data-gptui-site='ultrahd.net'] table[data-gptui-layout='ultrahd'] .gptui-title-cell[data-gptui-control-rail='true'] {
+		padding: 5px calc(var(--gptui-control-rail-space, 0px) + 4px) 5px 4px !important;
+	}
 }
 
 /* Final NexusPHP listing containment. These sites share a title-first table,
@@ -11001,4 +11111,234 @@ html[data-gptui-hide-type-column='true'][data-gptui-hide-type-column='true']:is(
 	white-space: normal !important;
 	word-break: normal !important;
 	overflow-wrap: normal !important;
+}
+
+/* -------------------------------------------------------------------------
+ * Cross-site pass over the preset domain list. Each rule below came from
+ * rendering a real page of a preset site: fixed-width site shells clip the
+ * right edge of the page, NexusPHP's dark-era grays drop below readable
+ * contrast on the light surfaces, and one-line cells push their own tail
+ * past the viewport.
+ */
+
+/* Shells and search bars carry pixel widths (width attribute or inline
+ * style). The body clips the overflow, so content past the viewport was
+ * simply lost instead of reflowing. */
+table[width],
+table.head,
+table.mainouter,
+table.main {
+	max-width: 100% !important;
+}
+
+/* NexusPHP ships .gray as dark gold for a dark page; on this theme it reads
+ * as 1.8:1. Keep it as secondary text instead. */
+font.gray,
+.gray,
+.grey {
+	color: #5f6672;
+	text-decoration: none;
+}
+
+/* Medal strips and poster thumbs inside nowrap cells cannot shrink, so the
+ * line broke out of its cell. Wrapping keeps the row readable. */
+td.text.nowrap,
+#info_block .nowrap,
+#userinfo .nowrap,
+td.embedded .nowrap {
+	white-space: normal;
+}
+
+/* Dubhe's home banner is wider than the viewport and dragged the whole
+ * document with it. */
+html[data-gptui-site='dubhe.site'] :is(.homepage-banner-container, .banner) {
+	max-width: 100%;
+	overflow-x: auto;
+}
+
+/* Anything that carries a pixel width attribute sets the minimum width of every
+ * shell above it, so the page was clipped instead of reflowed: the announcement
+ * scroller and the header cell are the usual offenders. A box wider than the
+ * viewport can never be intentional in a full-bleed layout, so it is capped.
+ * Column widths are left alone because the torrent grid reflows badly once its
+ * colgroup stops holding the title column open.
+ */
+table,
+td,
+th {
+	max-width: 100vw;
+}
+
+[width],
+table.head,
+table.mainouter,
+table.main {
+	max-width: 100vw !important;
+}
+
+table[data-gptui-torrent-table] {
+	max-width: 100vw;
+}
+
+/* Release names are one long word. Inside a title cell that is allowed to
+ * stretch, that single word was wider than the whole grid, so the row stuck
+ * out past the page. Breaking it is cheaper than losing the tail of the title.
+ */
+html[data-gptui-hide-type-column='true'][data-gptui-hide-type-column='true'][data-gptui-hide-type-column='true'][data-gptui-hide-type-column='true']
+	table[data-gptui-torrent-table]
+	tr.gptui-torrent-row
+	.gptui-title-cell
+	:is(a, b, strong, font, span, div) {
+	overflow-wrap: anywhere !important;
+}
+
+
+/* -------------------------------------------------------------------------
+ * Final account-panel and listing-cell pass.
+ * ---------------------------------------------------------------------- */
+
+/* open.cd and cyanbug put the whole stat strip into a nested table. The panel
+ * grid above turns every row and cell into a block, which squeezes each nested
+ * column down to one character per line. A panel that wraps its cells in a
+ * nested table keeps the native table layout instead. */
+
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme]:is([data-gptui-site='open.cd'], [data-gptui-site='cyanbug.net']) :is(table#info_block, table[data-gptui-info-block]):has(> tbody > tr > :is(td, th):only-child > table) {
+	display: table !important;
+	table-layout: auto !important;
+	width: 100% !important;
+	min-width: 0 !important;
+	max-width: 100% !important;
+	height: auto !important;
+	padding: 0 !important;
+}
+
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme]:is([data-gptui-site='open.cd'], [data-gptui-site='cyanbug.net']) :is(table#info_block, table[data-gptui-info-block]):has(> tbody > tr > :is(td, th):only-child > table) > tbody > tr:has(> :is(td, th):only-child > table) {
+	display: table-row !important;
+	width: 100% !important;
+	min-width: 0 !important;
+}
+
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme]:is([data-gptui-site='open.cd'], [data-gptui-site='cyanbug.net']) :is(table#info_block, table[data-gptui-info-block]):has(> tbody > tr > :is(td, th):only-child > table) > tbody > tr > :is(td, th):only-child {
+	display: table-cell !important;
+	width: auto !important;
+	min-width: 0 !important;
+	max-width: 100% !important;
+	padding: 6px 10px !important;
+}
+
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme]:is([data-gptui-site='open.cd'], [data-gptui-site='cyanbug.net']) :is(table#info_block, table[data-gptui-info-block]):has(> tbody > tr > :is(td, th):only-child > table) :is(td, th) > table {
+	display: table !important;
+	table-layout: auto !important;
+	width: 100% !important;
+	height: auto !important;
+}
+
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme]:is([data-gptui-site='open.cd'], [data-gptui-site='cyanbug.net']) :is(table#info_block, table[data-gptui-info-block]):has(> tbody > tr > :is(td, th):only-child > table) :is(td, th) > table :not(img) {
+	display: revert !important;
+	box-sizing: border-box !important;
+	width: auto !important;
+	min-width: 0 !important;
+	max-width: 100% !important;
+	white-space: normal !important;
+	word-break: normal !important;
+	overflow-wrap: normal !important;
+}
+
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme]:is([data-gptui-site='open.cd'], [data-gptui-site='cyanbug.net']) :is(table#info_block, table[data-gptui-info-block]):has(> tbody > tr > :is(td, th):only-child > table) :is(td, th) > table img {
+	max-width: 100% !important;
+}
+
+/* The account panel of hdkyl.in is one cell that wraps a nested table, and that
+ * nested row centres the avatar and the stat line with an inline-flex cell of the
+ * site's own. The strip rules above turned the cell back into a table cell, hid
+ * the break in front of the buttons and split the buttons at any character, which
+ * is what left them at three different heights. Inside a nested panel the site
+ * layout is the aligned one, so only the panel card itself is restyled. */
+
+html[data-gptui-site='www.hdkyl.in'][data-gptui-site='www.hdkyl.in'] table#info_block > tbody > tr > td > table,
+html[data-gptui-site='www.hdkyl.in'][data-gptui-site='www.hdkyl.in'] table#info_block > tbody > tr > td > table > tbody > tr,
+html[data-gptui-site='www.hdkyl.in'][data-gptui-site='www.hdkyl.in'] table#info_block > tbody > tr > td > table > tbody > tr > td {
+	width: auto !important;
+	min-width: 0 !important;
+	max-width: 100% !important;
+}
+
+html[data-gptui-site='www.hdkyl.in'][data-gptui-site='www.hdkyl.in'] table#info_block > tbody > tr > td > table > tbody > tr > td {
+	padding: 2px 6px !important;
+	white-space: normal !important;
+	word-break: normal !important;
+	overflow-wrap: break-word !important;
+	vertical-align: middle !important;
+}
+
+/* The buttons carry a percentage offset, so they dropped lower than their
+ * neighbours as soon as the panel became wider. */
+
+html[data-gptui-site='www.hdkyl.in'][data-gptui-site='www.hdkyl.in'] table#info_block .medium > a {
+	margin-top: 0 !important;
+	white-space: nowrap !important;
+	vertical-align: middle !important;
+}
+
+/* Short metric columns carry the site's own nowrap hint (添加时间 and 大小 share
+ * one cell on the CHD layouts). Forcing them to wrap collapsed the date into
+ * one character per line; the title cell still wraps freely. */
+
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme] :is(table[data-gptui-torrent-table], table.torrents, table.torrent_table, table#torrenttable, table#torrent_table) :is(td, th).nowrap:not(.gptui-title-cell),
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme]:is([data-gptui-site='dicmusic.com']) :is(table.torrent_table, table#torrent_table) :is(td.time, td.td_time, td.td_size, td.nobr) {
+	white-space: nowrap !important;
+	word-break: normal !important;
+	overflow-wrap: normal !important;
+}
+
+/* A title wrapper that carries a second cell is a real layout table (poster,
+ * title, promo, buttons on the CHD layouts). Collapsing it into a block stacks
+ * those cells and triples the height of every row, so it keeps its table
+ * boxes. Single cell wrappers stay blocks. */
+
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme] table[data-gptui-torrent-table] .gptui-title-cell > table:not(.gptui-rating-block):not(.gptui-rating-table):has(> tbody > tr > :is(td, th):nth-child(2)) {
+	display: table !important;
+	table-layout: auto !important;
+	width: 100% !important;
+	min-width: 0 !important;
+	max-width: 100% !important;
+	height: auto !important;
+	margin: 0 !important;
+}
+
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme] table[data-gptui-torrent-table] .gptui-title-cell > table:not(.gptui-rating-block):not(.gptui-rating-table):has(> tbody > tr > :is(td, th):nth-child(2)) > tbody {
+	display: table-row-group !important;
+	width: 100% !important;
+}
+
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme] table[data-gptui-torrent-table] .gptui-title-cell > table:not(.gptui-rating-block):not(.gptui-rating-table):has(> tbody > tr > :is(td, th):nth-child(2)) > tbody > tr {
+	display: table-row !important;
+	width: 100% !important;
+}
+
+html[data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme][data-gptui-safari-theme] table[data-gptui-torrent-table] .gptui-title-cell > table:not(.gptui-rating-block):not(.gptui-rating-table):has(> tbody > tr > :is(td, th):nth-child(2)) > tbody > tr > :is(td, th) {
+	display: table-cell !important;
+	width: auto !important;
+	min-width: 0 !important;
+	max-width: 100% !important;
+	padding: 0 !important;
+	vertical-align: top !important;
+	white-space: normal !important;
+	word-break: normal !important;
+	overflow-wrap: anywhere !important;
+}
+
+/* A category column that was widened to fit its icons has to drop the caps that
+ * existed to hold the hand-picked width.  A row carrying even more icons than the
+ * widest measured one then wraps inside the column instead of painting over the
+ * neighbour, and the measured width applies to every row of that listing. */
+
+html[data-gptui-safari-theme][data-gptui-safari-theme] table[data-gptui-type-column-fit='true'] .gptui-type-cell {
+	max-width: none !important;
+	white-space: normal !important;
+}
+
+html[data-gptui-safari-theme][data-gptui-safari-theme] table[data-gptui-type-column-fit='true'] > colgroup[data-gptui-column-widths='true'] col.gptui-col-type {
+	width: var(--gptui-type-column-width, 64px) !important;
+	min-width: var(--gptui-type-column-width, 64px) !important;
 }

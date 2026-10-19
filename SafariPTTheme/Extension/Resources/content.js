@@ -19,12 +19,25 @@
   const IS_TOP_FRAME = window.top === window.self;
   const FALLBACK_THEME = { id: 'gpt-ui', file: 'theme.css' };
   const DEFAULT_THEME_ID = themeRegistry?.defaultId || FALLBACK_THEME.id;
+  /* Non-NexusPHP engines (UNIT3D, Gazelle, FileList, custom layouts) run their
+   * own responsive system, so they get site-colors.css only: a NexusPHP shell
+   * would fight their grid and clip their pages. */
   const SITE_COLOR_ONLY_DOMAINS = Object.freeze([
     'greatposterwall.com',
     'oldtoons.world',
     'seedpool.org',
     'darkland.top',
-    'blutopia.cc'
+    'blutopia.cc',
+    'aither.cc',
+    'animez.to',
+    'anthelion.me',
+    'filelist.io',
+    'generation-free.org',
+    'lst.gg',
+    'nebulance.io',
+    'www.myanonamouse.net',
+    'www.torrentleech.cc',
+    'zhuque.in'
   ]);
   // These listings intentionally use the site's native NexusPHP table. Keep
   // their CSS-facing site id generic so retired site adapters cannot match.
@@ -604,6 +617,11 @@
     root.setAttribute(PAGE_ATTRIBUTE, /(?:torrents?\.php|index(?:\.php)?|browse|search)/i.test(location.pathname)
       ? 'listing'
       : 'page');
+    if (isSiteColorOnly()) {
+      root.setAttribute('data-gptui-color-only', 'true');
+    } else {
+      root.removeAttribute('data-gptui-color-only');
+    }
     if (activeSettings.hideTypeColumn) {
       root.setAttribute('data-gptui-hide-type-column', 'true');
     } else {
@@ -856,13 +874,21 @@
     return String(element?.textContent || '').replace(/\s+/g, ' ').trim();
   }
 
+  // The theme's own classes must not describe a column: "gptui-torrent-header-cell"
+  // alone makes every header cell look like a title column, so a re-adapt pass
+  // would move the title track onto the category column.
+  function originalClassNames(element) {
+    const className = typeof element?.className === 'string' ? element.className : '';
+    return className.split(/\s+/).filter((name) => name && !name.startsWith('gptui-')).join(' ');
+  }
+
   function columnLabel(cell) {
     return [
       textOf(cell),
       cell?.getAttribute?.('aria-label'),
       cell?.getAttribute?.('title'),
       cell?.getAttribute?.('alt'),
-      typeof cell?.className === 'string' ? cell.className : '',
+      originalClassNames(cell),
       cell?.id
     ].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim().toLowerCase();
   }
@@ -1314,6 +1340,67 @@
     columnGroup.setAttribute('data-gptui-column-signature', signature);
   }
 
+  /* A category cell is built from sprite icons whose real size only the site's own
+   * stylesheet declares, so a hand-picked column width either squeezes the icons
+   * into the next column or folds them onto a second line. The widest sampled line
+   * of icons asks the page for that width, and the column only ever grows. */
+  function typeColumnWidth(table) {
+    let needed = 0;
+    [...table.querySelectorAll('td.gptui-type-cell')].slice(0, 12).forEach((cell) => {
+      const icons = [...cell.querySelectorAll('img')]
+        .filter((icon) => icon.clientWidth > 1 || icon.clientHeight > 1);
+      if (!icons.length) {
+        return;
+      }
+      const style = getComputedStyle(cell);
+      const padding = (parseFloat(style.paddingLeft) || 0) + (parseFloat(style.paddingRight) || 0);
+      const lines = new Map();
+      icons.forEach((icon) => {
+        const box = icon.getBoundingClientRect();
+        const key = Math.round(box.top / 8);
+        const line = lines.get(key) || { left: box.left, right: box.right };
+        lines.set(key, {
+          left: Math.min(line.left, box.left),
+          right: Math.max(line.right, box.right)
+        });
+      });
+      lines.forEach((line) => {
+        needed = Math.max(needed, Math.ceil(line.right - line.left) + padding);
+      });
+    });
+    return needed;
+  }
+
+  function fitTypeColumn(table) {
+    const column = table?.querySelector('col.gptui-col-type');
+    if (!column || activeSettings.hideTypeColumn) {
+      table?.removeAttribute('data-gptui-type-column-fit');
+      table?.style.removeProperty('--gptui-type-column-width');
+      column?.style.removeProperty('width');
+      return;
+    }
+    const cells = [...table.querySelectorAll('td.gptui-type-cell')]
+      .filter((cell) => cell.querySelector('img'));
+    if (!cells.length) {
+      return;
+    }
+
+    /* An applied width is kept: the next adapt pass has to compare against what
+     * the column already carries, otherwise it would drop the mark while the
+     * inline width stayed and the wrapping fallback disappeared. */
+    const applied = Number.parseInt(table.style.getPropertyValue('--gptui-type-column-width'), 10) || 0;
+    const widest = Math.max(applied, ...cells.map((cell) => cell.getBoundingClientRect().width));
+    const needed = typeColumnWidth(table);
+    if (needed <= widest + 1) {
+      return;
+    }
+
+    const width = Math.min(needed, 216);
+    column.style.setProperty('width', `${width}px`, 'important');
+    table.style.setProperty('--gptui-type-column-width', `${width}px`);
+    setMark(table, 'data-gptui-type-column-fit', 'true');
+  }
+
   function torrentGridWidth(role, layout) {
     if (role === 'title') {
       return 'minmax(0, 1fr)';
@@ -1322,7 +1409,7 @@
       return ['open-cd', 'dicmusic'].includes(layout) ? '104px' : '72px';
     }
     if (role === 'type') {
-      return '64px';
+      return 'var(--gptui-type-column-width, 64px)';
     }
     if (role === 'artwork') {
       return '66px';
@@ -2257,6 +2344,13 @@
   function torrentImageOwnMarker(image) {
     return [
       image?.getAttribute?.('src'),
+      // Lazy-loaded artwork still carries its real file name, so a placeholder
+      // src cannot be the only thing a poster is judged by.
+      image?.getAttribute?.('data-src'),
+      image?.getAttribute?.('data-original'),
+      image?.getAttribute?.('data-original-src'),
+      image?.getAttribute?.('data-lazy-src'),
+      image?.getAttribute?.('data-orig'),
       image?.getAttribute?.('alt'),
       image?.getAttribute?.('title'),
       typeof image?.className === 'string' ? image.className : '',
@@ -2317,7 +2411,9 @@
     const ownMarker = torrentImageOwnMarker(image);
     const ownerMarker = torrentImageOwnerMarker(image);
     const marker = `${ownMarker} ${ownerMarker}`;
-    const roleMarker = /(?:download|arrowdown|rss|feed|comment|reply|question|help|audit|review|approve|verify|check|favorite|favourite|bookmark|collect|star|imdb|tmdb|douban|rating|score|审核|未审|已审)/i;
+    // Control words must stand alone: an alt of "preview" is a poster, not a
+    // review control, and a lazy placeholder hides the real file name.
+    const roleMarker = /(?:^|[^a-z])(?:download|arrowdown|rss|feed|comment|reply|question|help|audit|review|approve|verify|check|favorite|favourite|bookmark|collect|star|imdb|tmdb|douban|rating|score)(?:[^a-z]|$)|审核|未审|已审/i;
     const ownRoleMarker = roleMarker.test(ownMarker);
 
     const rect = image.getBoundingClientRect?.();
@@ -2341,7 +2437,7 @@
     }
 
     if (siteRule.layout === 'pterclub' &&
-        /(?:poster|cover|movie|film|backdrop|thumbnail|timg|海报|封面)/i.test(marker) &&
+        /(?:poster|cover|movie|film|backdrop|thumbnail|timg|preview|lozad|lazy|海报|封面|预览)/i.test(marker) &&
         !ownRoleMarker) {
       return true;
     }
@@ -2377,6 +2473,21 @@
       return hasOwner || hasExplicitFavorite;
     }
     return hasOwner && row.contains(owner);
+  }
+
+  // Download and favorite links are icon driven on the rail layouts, so a
+  // title-cell link that only carries text is the release name. Its tooltip can
+  // still hold a role word ("Stars", "Helmet", "collection"), and marking that
+  // link collapses the title into the fixed 20px control box.
+  function isTorrentTitleTextLink(element, role) {
+    if (role !== 'download' && role !== 'favorite') {
+      return false;
+    }
+    return Boolean(element?.nodeType === 1 &&
+      element.matches?.('a') &&
+      element.closest('.gptui-title-cell') &&
+      !element.querySelector('img, svg, input[type="image"], canvas, iframe, video') &&
+      Boolean(textOf(element)));
   }
 
   function markTorrentControlElement(element, role) {
@@ -2540,7 +2651,10 @@
 
   function isTorrentRatingValueNode(node) {
     const value = node?.nodeType === 3 ? node.nodeValue : textOf(node);
-    if (!/^(?:\d{1,2}\s*\.\s*\d{1,2}|N\s*\/?\s*A)$/i.test(String(value || '').trim())) {
+    // Rating columns print a "no score" placeholder where a number belongs.
+    // Treat it as a value so the rail item stays whole; leaving it behind
+    // strands a floating "无" in the row once the icon moves to the rail.
+    if (!/^(?:\d{1,2}\s*\.\s*\d{1,2}|N\s*\/?\s*A|无|暂无|暂无评分|未评分|—|--?)$/i.test(String(value || '').trim())) {
       return false;
     }
     return node?.nodeType === 3 || !node.querySelector?.('img, svg, a, button, input');
@@ -2921,6 +3035,9 @@
       if (isTorrentPosterImage(image, row, titleCell)) {
         return;
       }
+      if (isTorrentTitleTextLink(torrentControlOwner(image), role)) {
+        return;
+      }
       if (!torrentControlAllowed(image, role, row, titleCell)) {
         return;
       }
@@ -2931,6 +3048,9 @@
       const marker = torrentControlMarker(control);
       const role = torrentControlRole(marker);
       if (!role || /(?:pro[_-]?)?free|freeleech|pctdown|twoupfree/.test(marker)) {
+        return;
+      }
+      if (isTorrentTitleTextLink(control, role)) {
         return;
       }
       if (torrentControlRootHasPoster(control, row, titleCell)) {
@@ -3081,12 +3201,26 @@
       : -1;
   }
 
+  /* Grid and flex rows keep their tracks in cell order, so dropping one cell
+   * slides every later cell into the previous track and the row collapses.  A
+   * listing whose rows the site lays out that way keeps its category column. */
+  function rowsUseTrackFlow(table, header) {
+    const flowRow = /^(?:inline-)?(?:grid|flex)$/;
+    return [header, ...[...table.rows].filter((row) => row !== header)]
+      .slice(0, 4)
+      .some((row) => row && flowRow.test(getComputedStyle(row).display));
+  }
+
   function markTypeColumn(table) {
     if (!table) {
       return;
     }
 
     const header = findHeaderRow(table);
+    if (header && rowsUseTrackFlow(table, header)) {
+      return;
+    }
+
     const labels = [...(header?.cells || [])].map(columnLabel);
     const typeIndex = resolveTypeColumnIndex(labels, siteRule.layout);
     const titleIndex = Number.parseInt(table.getAttribute('data-gptui-title-column') || '', 10) - 1;
@@ -3321,6 +3455,7 @@
       free: freeIndex,
       publisher: count - 1
     }, count, header);
+    fitTypeColumn(table);
   }
 
   function hasFreeTimeText(value) {
@@ -4000,10 +4135,118 @@
     titleCell.style.setProperty('--gptui-pterclub-title-offset', `${offset}px`);
   }
 
+  function setMark(element, name, value) {
+    if (element.getAttribute(name) !== value) {
+      element.setAttribute(name, value);
+    }
+  }
+
+  /* ddlevelsmenu and the other NexusPHP menu scripts move every submenu into a
+   * wrapper they append to the end of <body>, then write the coordinates on that
+   * wrapper.  Those menus have to keep the position the script gives them.  A
+   * submenu that is still inside its own nav item is ours to position. */
+  function dropdownAnchor(dropdown) {
+    const parent = dropdown.parentElement;
+    if (!parent || parent.tagName !== 'LI') {
+      return 'page';
+    }
+    if (parent.closest('[data-gptui-dropdown]')) {
+      return 'page';
+    }
+    if (getComputedStyle(dropdown).position === 'fixed') {
+      return 'page';
+    }
+    return 'li';
+  }
+
+  /* One forced layout pass measures the menu.  A menu anchored to its item is
+   * positioned against that item, so every wrapper in between that clips its
+   * overflow hid the whole flyout; only a wrapper that really cuts the menu open
+   * stops clipping, and a region the site made scrollable keeps its scrollbar. */
+  /* The colour actually painted behind a menu item, composited over white so a
+   * translucent surface can be judged like an opaque one. */
+  function paintedBackground(node) {
+    for (let current = node; current && current !== document.documentElement;
+      current = current.parentElement) {
+      const channels = getComputedStyle(current).backgroundColor.match(/[\d.]+/g);
+      if (!channels || channels.length < 3) {
+        continue;
+      }
+      const alpha = channels.length > 3 ? Math.min(Number(channels[3]), 1) : 1;
+      if (alpha > 0.02) {
+        return [0, 1, 2].map((index) => Number(channels[index]) * alpha + 255 * (1 - alpha));
+      }
+    }
+    return [255, 255, 255];
+  }
+
+  function backgroundIsDark(color) {
+    const luminance = color.map((channel) => {
+      const ratio = channel / 255;
+      return ratio <= 0.03928 ? ratio / 12.92 : ((ratio + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * luminance[0] + 0.7152 * luminance[1] + 0.0722 * luminance[2] < 0.35;
+  }
+
+  function fitDropdown(dropdown, anchor) {
+    const previous = dropdown.style.cssText;
+    dropdown.style.cssText += ';display:block !important;visibility:hidden !important';
+    const rect = dropdown.getBoundingClientRect();
+    const scrollable = dropdown.scrollHeight > dropdown.clientHeight + 1;
+    const clippers = [];
+    for (let node = dropdown.parentElement; node && node !== document.body;
+      node = node.parentElement) {
+      const style = getComputedStyle(node);
+      if (style.overflowX !== 'visible' || style.overflowY !== 'visible') {
+        clippers.push([node, style]);
+      }
+    }
+    dropdown.style.cssText = previous;
+
+    /* The theme paints its nav bar light and writes dark text on it.  A flyout
+     * that keeps the site's own dark surface has to keep light text, otherwise
+     * the whole menu turns dark on dark and reads as an empty box. */
+    const itemSurfaces = [...dropdown.querySelectorAll('li > a, li > span')]
+      .slice(0, 3)
+      .map(paintedBackground);
+    const surface = itemSurfaces[0] || paintedBackground(dropdown);
+    setMark(dropdown, 'data-gptui-dropdown-tone', backgroundIsDark(surface) ? 'dark' : 'light');
+    setMark(dropdown, 'data-gptui-dropdown-scroll', scrollable ? 'true' : 'false');
+    if (anchor !== 'li') {
+      return;
+    }
+    clippers.some(([node, style]) => {
+      const box = node.getBoundingClientRect();
+      const clips = rect.bottom > box.bottom + 1 || rect.top < box.top - 1 ||
+        rect.right > box.right + 1 || rect.left < box.left - 1;
+      setMark(node, 'data-gptui-menu-clip', clips ? 'true' : 'false');
+      return /auto|scroll/.test(`${style.overflowX} ${style.overflowY}`);
+    });
+  }
+
   function normalizeDropdown(dropdown) {
-    dropdown.setAttribute('data-gptui-dropdown', 'true');
+    if (isMenuItemBodyList(dropdown, dropdown.closest('li'))) {
+      return;
+    }
+    setMark(dropdown, 'data-gptui-dropdown', 'true');
     const owner = dropdown.closest('li') || dropdown.parentElement;
     owner?.setAttribute('data-gptui-menu-owner', 'true');
+
+    const anchor = dropdownAnchor(dropdown);
+    setMark(dropdown, 'data-gptui-dropdown-anchor', anchor);
+    if (!dropdown.hasAttribute('data-gptui-dropdown-scroll')) {
+      fitDropdown(dropdown, anchor);
+    }
+    if (anchor === 'page') {
+      dropdown.removeAttribute('data-gptui-dropdown-edge');
+      dropdown.removeAttribute('data-gptui-dropdown-placement');
+      const wrapper = dropdown.parentElement;
+      if (wrapper && wrapper.tagName === 'DIV' &&
+          /^(?:absolute|fixed)$/.test(getComputedStyle(wrapper).position)) {
+        setMark(wrapper, 'data-gptui-dropdown-shell', 'true');
+      }
+      return;
+    }
     if (!IS_TOP_FRAME) {
       return;
     }
@@ -4030,6 +4273,25 @@
     } else {
       dropdown.setAttribute('data-gptui-dropdown-placement', 'bottom');
     }
+  }
+
+  const SUBMENU_CLASS_PATTERN = /(?:sub_?menu|submenu|dropdown|ddmenu)/i;
+
+  /* Some sites render every menu entry as its own list (musopia uses
+   * `<li><ul class="np-menu-entry"><li><a>`), so a nested list is not always a
+   * dropdown. Positioning that wrapper turned every top level item into an
+   * overlay stacked on the same pixel. */
+  function isMenuItemBodyList(dropdown, owner) {
+    if (!owner || owner.tagName !== 'LI' || owner.firstElementChild !== dropdown) {
+      return false;
+    }
+    if (SUBMENU_CLASS_PATTERN.test(typeof dropdown.className === 'string' ? dropdown.className : '')) {
+      return false;
+    }
+    if (dropdown.querySelector('ul, ol')) {
+      return false;
+    }
+    return !!dropdown.querySelector(':scope > li > a, :scope > li > :is(div, span, b, strong) > a');
   }
 
   function normalizeDropdowns() {

@@ -7,7 +7,11 @@ PROJECT_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
 XCODE_ROOT="$PROJECT_ROOT/SafariPTTheme"
 DERIVED_DATA="$PROJECT_ROOT/build/ReleaseDerivedData"
 PACKAGE_ROOT="$PROJECT_ROOT/build/Packages"
-VERSION="0.1.0"
+VERSION=$(sed -n 's/^[[:space:]]*MARKETING_VERSION:[[:space:]]*"\{0,1\}\([^"]*\)"\{0,1\}$/\1/p' "$XCODE_ROOT/project.yml" | head -1)
+if [ -z "$VERSION" ]; then
+	printf '%s\n' 'Packaging failed: MARKETING_VERSION is missing from SafariPTTheme/project.yml' >&2
+	exit 1
+fi
 APP_NAME="gpt-ui"
 APP_PATH="$DERIVED_DATA/Build/Products/Release/$APP_NAME.app"
 ZIP_PATH="$PACKAGE_ROOT/${APP_NAME}-${VERSION}-macOS-arm64.zip"

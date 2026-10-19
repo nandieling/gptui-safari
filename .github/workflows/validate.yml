@@ -1,0 +1,58 @@
+name: 校验 Validate
+
+# 每次推送与 Pull Request 都做完整校验：版本号一致、仓库没有构建产物、
+# 浏览器包可组装、Safari 扩展可编译。
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-packages:
+    name: Chrome / Firefox 包
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 检查版本号一致
+        run: ./Scripts/check-version-parity.sh
+
+      - name: 检查仓库忽略项
+        run: ./Scripts/check-repo-hygiene.sh
+
+      - name: 组装并校验浏览器包
+        run: |
+          ./BrowserPTTheme/build.sh
+          ./BrowserPTTheme/validate.sh
+
+  safari-extension:
+    name: Safari 扩展
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 安装构建工具
+        run: |
+          command -v rg >/dev/null || brew install ripgrep
+          command -v xcodegen >/dev/null || brew install xcodegen
+
+      - name: 校验扩展
+        run: ./Scripts/validate-extension.sh
+
+      - name: 构建扩展
+        run: ./Scripts/build-extension.sh

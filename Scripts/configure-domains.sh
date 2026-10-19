@@ -88,3 +88,4 @@ NODE
 
 printf '%s\n' 'Configured domains in the manifest and target defaults.'
 printf '%s\n' 'Run ./Scripts/validate-extension.sh and ./Scripts/build-extension.sh next.'
+printf '%s\n' 'Run ./BrowserPTTheme/build.sh to carry the new list into the Chrome and Firefox packages.'

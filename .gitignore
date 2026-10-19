@@ -1,0 +1,38 @@
+# macOS 目录与缩略图缓存
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Xcode 构建产物与用户状态（工程由 xcodegen 从 project.yml 生成）
+build/
+DerivedData/
+DerivedData*/
+build/Packages/
+*.xccheckout
+*.xcscmblueprint
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM
+*.dSYM.zip
+xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
+*.xcplayground
+*.xctimeline
+.swiftpm/
+
+# 分发包（每次构建重新生成）
+BrowserPTTheme/dist/
+*.zip
+*.dmg
+*.xpi
+
+# 本地与编辑器状态
+.env
+.env.*
+*.log
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,92 @@
+name: 发布安装包 Release
+
+# 打 tag（例如 v1.1）即自动打包 macOS 应用、Chrome zip、Firefox xpi，
+# 并上传到该 tag 的 GitHub Release。也可以在 Actions 里手动触发，
+# 填入已存在的标签名；标签不存在时会在当前提交上创建。
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: '要发布的标签，例如 v1.1'
+        required: true
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+
+jobs:
+  packages:
+    name: macOS + Chrome + Firefox
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 安装构建工具
+        run: |
+          command -v rg >/dev/null || brew install ripgrep
+          command -v xcodegen >/dev/null || brew install xcodegen
+
+      - name: 解析发布标签
+        id: release
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          tag="$GITHUB_REF_NAME"
+          if [ "$EVENT_NAME" = 'workflow_dispatch' ]; then
+            tag="$INPUT_TAG"
+          fi
+          case "$tag" in
+            v[0-9]*) ;;
+            *) printf 'Unexpected tag: %s\n' "$tag" >&2; exit 1 ;;
+          esac
+          if ! git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            git tag "$tag"
+            git push origin "$tag"
+          fi
+          printf 'tag=%s\n' "$tag" >> "$GITHUB_OUTPUT"
+          printf 'version=%s\n' "${tag#v}" >> "$GITHUB_OUTPUT"
+
+      - name: 检查版本号一致
+        run: ./Scripts/check-version-parity.sh '${{ steps.release.outputs.version }}'
+
+      - name: 打包 macOS 应用
+        run: ./Scripts/package-mac-app.sh
+
+      - name: 打包浏览器安装包
+        run: ./BrowserPTTheme/build.sh
+
+      - name: 上传到 GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          gh release view "$TAG" >/dev/null 2>&1 ||
+            gh release create "$TAG" --title "gpt-ui $TAG" --generate-notes
+          gh release upload "$TAG" --clobber \
+            build/Packages/gpt-ui-*.zip \
+            build/Packages/gpt-ui-*.dmg \
+            BrowserPTTheme/dist/gpt-ui-chrome-*.zip \
+            BrowserPTTheme/dist/gpt-ui-firefox-*.xpi
+
+      - name: 保留工作区产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: gpt-ui-${{ steps.release.outputs.tag }}
+          path: |
+            build/Packages/gpt-ui-*.zip
+            build/Packages/gpt-ui-*.dmg
+            BrowserPTTheme/dist/gpt-ui-chrome-*.zip
+            BrowserPTTheme/dist/gpt-ui-firefox-*.xpi
+          if-no-files-found: error

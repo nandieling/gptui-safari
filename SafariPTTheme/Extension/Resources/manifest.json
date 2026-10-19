@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "gpt-ui",
-  "version": "0.1.0",
+  "version": "1.1",
   "description": "A focused modern theme for NexusPHP-based PT sites in macOS Safari.",
   "icons": {
     "16": "icon-16.png",
