@@ -87,10 +87,10 @@ Firefox 在 `about:debugging#/runtime/this-firefox` 临时载入
 版本号只在 `SafariPTTheme/project.yml` 的 `MARKETING_VERSION` 维护，当前为 **1.1**，
 三个 manifest 由 `Scripts/check-version-parity.sh` 强制对齐。
 
-打 tag 即可自动发布（`.github/workflows/release.yml`）：
+打 tag 即可自动发布（`.github/workflows/release.yml`），`1.1` 与 `v1.1` 两种写法都支持：
 
 ```sh
-git tag v1.1 && git push origin v1.1
+git tag 1.1 && git push origin 1.1
 ```
 
 Actions 会在 macOS runner 上依次执行 `Scripts/package-mac-app.sh` 与

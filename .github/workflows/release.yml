@@ -1,6 +1,6 @@
 name: 发布安装包 Release
 
-# 打 tag（例如 v1.1）即自动打包 macOS 应用、Chrome zip、Firefox xpi，
+# 打 tag（1.1 或 v1.1 都可以）即自动打包 macOS 应用、Chrome zip、Firefox xpi，
 # 并上传到该 tag 的 GitHub Release。也可以在 Actions 里手动触发，
 # 填入已存在的标签名；标签不存在时会在当前提交上创建。
 
@@ -8,10 +8,11 @@ on:
   push:
     tags:
       - 'v*'
+      - '[0-9]*'
   workflow_dispatch:
     inputs:
       tag:
-        description: '要发布的标签，例如 v1.1'
+        description: '要发布的标签，例如 1.1 或 v1.1'
         required: true
         default: ''
 
@@ -45,16 +46,25 @@ jobs:
           if [ "$EVENT_NAME" = 'workflow_dispatch' ]; then
             tag="$INPUT_TAG"
           fi
-          case "$tag" in
-            v[0-9]*) ;;
-            *) printf 'Unexpected tag: %s\n' "$tag" >&2; exit 1 ;;
-          esac
+          # 允许 1.1 与 v1.1 两种写法，版本号取去掉前缀 v 之后的部分。
+          tag=$(printf '%s' "$tag" | tr -d '[:space:]')
+          version=$(printf '%s' "$tag" | sed 's/^[vV]//')
+          if ! printf '%s' "$version" | grep -Eq '^[0-9]+(\.[0-9]+)*$'; then
+            printf 'Unexpected tag: %s（应为 1.1 或 v1.1 这类版本号）\n' "$tag" >&2
+            exit 1
+          fi
+          # 手动触发时浅克隆可能没有带下这个标签：远端已有就取下来，没有才新建。
           if ! git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
-            git tag "$tag"
-            git push origin "$tag"
+            if git ls-remote --exit-code origin "refs/tags/$tag" >/dev/null 2>&1; then
+              git fetch --force origin "refs/tags/$tag:refs/tags/$tag"
+            else
+              git tag "$tag"
+              git push origin "$tag"
+            fi
           fi
           printf 'tag=%s\n' "$tag" >> "$GITHUB_OUTPUT"
-          printf 'version=%s\n' "${tag#v}" >> "$GITHUB_OUTPUT"
+          printf 'version=%s\n' "$version" >> "$GITHUB_OUTPUT"
+          printf '发布标签 %s，版本号 %s\n' "$tag" "$version"
 
       - name: 检查版本号一致
         run: ./Scripts/check-version-parity.sh '${{ steps.release.outputs.version }}'
