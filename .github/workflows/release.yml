@@ -33,9 +33,7 @@ jobs:
           node-version: '22'
 
       - name: 安装构建工具
-        run: |
-          command -v rg >/dev/null || brew install ripgrep
-          command -v xcodegen >/dev/null || brew install xcodegen
+        run: command -v xcodegen >/dev/null || brew install xcodegen
 
       - name: 解析发布标签
         id: release

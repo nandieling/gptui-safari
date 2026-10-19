@@ -8,6 +8,7 @@ EXTENSION_ROOT="$PROJECT_ROOT/SafariPTTheme"
 RESOURCES_ROOT="$EXTENSION_ROOT/Extension/Resources"
 APP_ENTITLEMENTS="$EXTENSION_ROOT/SafariPTTheme.entitlements"
 EXTENSION_ENTITLEMENTS="$EXTENSION_ROOT/SafariPTThemeExtension.entitlements"
+PLIST_BUDDY=/usr/libexec/PlistBuddy
 
 fail() {
 	printf '%s\n' "Validation failed: $*" >&2
@@ -17,6 +18,16 @@ fail() {
 require_file() {
 	[ -f "$1" ] || fail "Missing file: $1"
 }
+
+# plutil -p prints a textual dump whose quoting changed between macOS releases,
+# so read single keys with PlistBuddy instead of matching on that output.
+entitlement_is_true() {
+	value=$(LC_ALL=C "$PLIST_BUDDY" -c "Print :$2" "$1" 2>/dev/null | tr '[:upper:]' '[:lower:]' || true)
+	[ "$value" = "true" ] || [ "$value" = "yes" ]
+}
+
+command -v plutil >/dev/null 2>&1 || fail "plutil is required to read Info.plist"
+[ -x "$PLIST_BUDDY" ] || fail "PlistBuddy is required to read entitlements"
 
 require_file "$PROJECT_ROOT/theme.css"
 require_file "$PROJECT_ROOT/agsv-theme.css"
@@ -56,7 +67,7 @@ plutil -lint "$APP_ENTITLEMENTS" >/dev/null
 plutil -lint "$EXTENSION_ENTITLEMENTS" >/dev/null
 
 for entitlements_file in "$APP_ENTITLEMENTS" "$EXTENSION_ENTITLEMENTS"; do
-	if ! plutil -p "$entitlements_file" | rg -q '"com\.apple\.security\.app-sandbox" => true'; then
+	if ! entitlement_is_true "$entitlements_file" com.apple.security.app-sandbox; then
 		fail "App Sandbox is not enabled: $entitlements_file"
 	fi
 done
@@ -67,7 +78,7 @@ bundle_type=$(plutil -extract CFBundlePackageType raw -o - "$EXTENSION_ROOT/Exte
 extension_point=$(plutil -extract NSExtension.NSExtensionPointIdentifier raw -o - "$EXTENSION_ROOT/Extension/Info.plist")
 [ "$extension_point" = "com.apple.Safari.web-extension" ] || fail "Unexpected Safari extension point: $extension_point"
 
-if rg -n '<key>NSExtensionAttributes</key>' "$EXTENSION_ROOT/Extension/Info.plist" >/dev/null; then
+if grep -q '<key>NSExtensionAttributes</key>' "$EXTENSION_ROOT/Extension/Info.plist"; then
 	fail "Safari Web Extension Info.plist must not contain Safari App Extension attributes."
 fi
 
@@ -77,7 +88,7 @@ for css_file in "$PROJECT_ROOT/theme.css" "$PROJECT_ROOT/agsv-theme.css" "$PROJE
 	[ "$1" -eq "$2" ] || fail "Unbalanced CSS braces: $css_file"
 done
 
-if rg -n "@import[[:space:]]+url" "$PROJECT_ROOT/theme.css" >/dev/null; then
+if grep -Eq '@import[[:space:]]+url' "$PROJECT_ROOT/theme.css"; then
 	fail "theme.css still contains a remote @import"
 fi
 

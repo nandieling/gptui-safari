@@ -104,6 +104,8 @@ Actions 会在 macOS runner 上依次执行 `Scripts/package-mac-app.sh` 与
 | `gpt-ui-firefox-1.1.xpi` | Firefox，正式安装需 AMO 签名 |
 
 macOS 包为 ad-hoc 签名，首次打开请右键 →「打开」绕过 Gatekeeper。
+CI 以 `CODE_SIGN_STYLE=Manual`、`CODE_SIGN_IDENTITY=-` 并清空 `DEVELOPMENT_TEAM` 的方式签名，
+因此 runner 上不需要登录 Apple ID，也不需要描述文件；本地 Xcode 仍使用 `project.yml` 里的团队 ID。
 Pull Request 会跑 `.github/workflows/validate.yml`：版本号、仓库忽略项、浏览器包与 Safari 扩展构建。
 
 ---

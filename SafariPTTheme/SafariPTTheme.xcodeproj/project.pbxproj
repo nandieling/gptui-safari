@@ -17,7 +17,7 @@
 		45B382DD54A33D35CD3132D9 /* icon-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 271A8BB0572191EAA5416536 /* icon-32.png */; };
 		503BE504B3384ADE68C905F6 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = EA29089090EE97E29341BC85 /* manifest.json */; };
 		7A8D0AA176985C666F7B3306 /* themes.js in Resources */ = {isa = PBXBuildFile; fileRef = 2070FC7F5DF04B8630101590 /* themes.js */; };
-		8A3DF90A46F36DAE33240453 /* gpt-ui Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 46E8BAA4D41ACB9D9AD60B94 /* gpt-ui Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8A3DF90A46F36DAE33240453 /* SafariPTThemeExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 46E8BAA4D41ACB9D9AD60B94 /* SafariPTThemeExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		98A524BB8C8D628DF67F2E85 /* icon-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 208AEFD454E65F1B630424BF /* icon-128.png */; };
 		B72E50D237B610FEF8A3F4C7 /* icon-16.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F9B08C499A937814F27CCF /* icon-16.png */; };
 		BF0871C579C397DA76DF3F74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F34C5305C0474D7C5072C49 /* Assets.xcassets */; };
@@ -47,7 +47,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				8A3DF90A46F36DAE33240453 /* gpt-ui Extension.appex in Embed Foundation Extensions */,
+				8A3DF90A46F36DAE33240453 /* SafariPTThemeExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -55,14 +55,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		13863672C29D5770F61B920D /* gpt-ui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gpt-ui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13863672C29D5770F61B920D /* SafariPTTheme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafariPTTheme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2070FC7F5DF04B8630101590 /* themes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = themes.js; sourceTree = "<group>"; };
 		208AEFD454E65F1B630424BF /* icon-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-128.png"; sourceTree = "<group>"; };
 		24CACF71F7C328280B94693A /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = options.html; sourceTree = "<group>"; };
 		271A8BB0572191EAA5416536 /* icon-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-32.png"; sourceTree = "<group>"; };
 		2B431E91459E40BFE4539E86 /* icon-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-48.png"; sourceTree = "<group>"; };
 		2CE43F4510BDA20EBDBF1F6D /* options.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = options.css; sourceTree = "<group>"; };
-		46E8BAA4D41ACB9D9AD60B94 /* gpt-ui Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "gpt-ui Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		46E8BAA4D41ACB9D9AD60B94 /* SafariPTThemeExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SafariPTThemeExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5059F57898A832BAA4CB3F34 /* domain-utils.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "domain-utils.js"; sourceTree = "<group>"; };
 		5AD06290C6A1EFD574ED2365 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
 		5F34C5305C0474D7C5072C49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -92,8 +92,8 @@
 		A5EB31806D358D1D74E260AE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13863672C29D5770F61B920D /* gpt-ui.app */,
-				46E8BAA4D41ACB9D9AD60B94 /* gpt-ui Extension.appex */,
+				13863672C29D5770F61B920D /* SafariPTTheme.app */,
+				46E8BAA4D41ACB9D9AD60B94 /* SafariPTThemeExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,7 +169,7 @@
 			packageProductDependencies = (
 			);
 			productName = SafariPTTheme;
-			productReference = 13863672C29D5770F61B920D /* gpt-ui.app */;
+			productReference = 13863672C29D5770F61B920D /* SafariPTTheme.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6D7B82CE9645B11FE15C4847 /* SafariPTThemeExtension */ = {
@@ -187,7 +187,7 @@
 			packageProductDependencies = (
 			);
 			productName = SafariPTThemeExtension;
-			productReference = 46E8BAA4D41ACB9D9AD60B94 /* gpt-ui Extension.appex */;
+			productReference = 46E8BAA4D41ACB9D9AD60B94 /* SafariPTThemeExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -200,9 +200,11 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					6CA98B0F6727C39295C06A20 = {
+						DevelopmentTeam = DT95MB3RG4;
 						ProvisioningStyle = Automatic;
 					};
 					6D7B82CE9645B11FE15C4847 = {
+						DevelopmentTeam = DT95MB3RG4;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -296,7 +298,6 @@
 				CODE_SIGN_ENTITLEMENTS = SafariPTThemeExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = DT95MB3RG4;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -307,10 +308,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-				);
+				OTHER_LDFLAGS = "-framework SafariServices";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.areyouok.gptui.safari.extension;
 				PRODUCT_NAME = "gpt-ui Extension";
 				SDKROOT = macosx;
@@ -354,6 +352,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = DT95MB3RG4;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -382,7 +381,6 @@
 				CODE_SIGN_ENTITLEMENTS = SafariPTThemeExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = DT95MB3RG4;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -393,10 +391,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-				);
+				OTHER_LDFLAGS = "-framework SafariServices";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.areyouok.gptui.safari.extension;
 				PRODUCT_NAME = "gpt-ui Extension";
 				SDKROOT = macosx;
@@ -411,7 +406,6 @@
 				CODE_SIGN_ENTITLEMENTS = SafariPTTheme.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = DT95MB3RG4;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -423,12 +417,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-					"-framework",
-					WebKit,
-				);
+				OTHER_LDFLAGS = "-framework SafariServices -framework WebKit";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.areyouok.gptui.safari;
 				PRODUCT_NAME = "gpt-ui";
 				SDKROOT = macosx;
@@ -471,6 +460,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = DT95MB3RG4;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -507,7 +497,6 @@
 				CODE_SIGN_ENTITLEMENTS = SafariPTTheme.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = DT95MB3RG4;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -519,12 +508,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-					"-framework",
-					WebKit,
-				);
+				OTHER_LDFLAGS = "-framework SafariServices -framework WebKit";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.areyouok.gptui.safari;
 				PRODUCT_NAME = "gpt-ui";
 				SDKROOT = macosx;

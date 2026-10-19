@@ -9,6 +9,8 @@ DERIVED_DATA="$PROJECT_ROOT/build/DerivedData"
 
 cd "$XCODE_ROOT"
 xcodegen generate --spec project.yml
+# Ad-hoc signing with explicit settings keeps the build working on clean CI
+# machines that have no developer account or provisioning profile installed.
 xcodebuild -quiet \
 	-project SafariPTTheme.xcodeproj \
 	-scheme SafariPTTheme \
@@ -18,6 +20,9 @@ xcodebuild -quiet \
 	CODE_SIGNING_ALLOWED=YES \
 	CODE_SIGNING_REQUIRED=NO \
 	CODE_SIGN_IDENTITY=- \
+	CODE_SIGN_STYLE=Manual \
+	PROVISIONING_PROFILE_SPECIFIER= \
+	DEVELOPMENT_TEAM= \
 	build
 
 printf '%s\n' "macOS Safari extension build completed: $DERIVED_DATA/Build/Products/Debug"
