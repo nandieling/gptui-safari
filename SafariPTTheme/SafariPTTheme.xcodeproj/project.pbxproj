@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -200,11 +200,9 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					6CA98B0F6727C39295C06A20 = {
-						DevelopmentTeam = DT95MB3RG4;
 						ProvisioningStyle = Automatic;
 					};
 					6D7B82CE9645B11FE15C4847 = {
-						DevelopmentTeam = DT95MB3RG4;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -217,8 +215,6 @@
 				en,
 			);
 			mainGroup = D8F7D4B5B18EF9B7B7209AE1;
-			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = A5EB31806D358D1D74E260AE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -352,7 +348,6 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = DT95MB3RG4;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -460,7 +455,6 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = DT95MB3RG4;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

@@ -23,6 +23,7 @@ mkdir -p "$PACKAGE_ROOT"
 
 cd "$XCODE_ROOT"
 xcodegen generate --spec project.yml
+"$SCRIPT_DIR/normalize-project-format.sh" "$XCODE_ROOT/SafariPTTheme.xcodeproj/project.pbxproj"
 # Ad-hoc signing with explicit settings keeps the build working on clean CI
 # machines that have no developer account or provisioning profile installed.
 xcodebuild -quiet \

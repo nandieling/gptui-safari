@@ -10,9 +10,6 @@ settings:
     SWIFT_VERSION: "5.0"
     MARKETING_VERSION: "1.1"
     CURRENT_PROJECT_VERSION: "2"
-    # Keeps Xcode signing working out of the box.  The build and packaging
-    # scripts override this with an empty team so CI can sign ad-hoc.
-    DEVELOPMENT_TEAM: DT95MB3RG4
 
 targets:
   SafariPTTheme:

@@ -128,6 +128,11 @@ Pull Request 会跑 `.github/workflows/validate.yml`：版本号、仓库忽略�
 `SafariPTTheme.xcodeproj` 由 xcodegen 依据 `project.yml` 生成，为了直接打开工程仍保留
 `project.pbxproj` 与 `contents.xcworkspacedata`，其余 Xcode 私有状态一律不入库。
 
+XcodeGen 写出的工程格式（`objectVersion = 77`）只有最新版 Xcode 能读，CI 上的旧版 Xcode 会直接
+报 `Unable to read project`。`Scripts/normalize-project-format.sh` 会把它降回格式 54，构建与
+打包脚本已自动调用，`Scripts/validate-extension.sh` 负责拦截过新的格式。工程不写入
+`DEVELOPMENT_TEAM`，脚本以 `CODE_SIGN_IDENTITY=-` 做 ad-hoc 签名；本地在 Xcode 里选择签名团队即可。
+
 ---
 
 ### ❤️ 鸣谢

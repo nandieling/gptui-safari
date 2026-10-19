@@ -66,6 +66,14 @@ plutil -lint "$EXTENSION_ROOT/Extension/Info.plist" >/dev/null
 plutil -lint "$APP_ENTITLEMENTS" >/dev/null
 plutil -lint "$EXTENSION_ENTITLEMENTS" >/dev/null
 
+# A project format newer than the runner's Xcode cannot be opened at all, so the
+# generated project is kept on a format that every supported Xcode can read.
+project_format=$(sed -n 's/^[[:space:]]*objectVersion = \([0-9][0-9]*\);$/\1/p' "$EXTENSION_ROOT/SafariPTTheme.xcodeproj/project.pbxproj" | head -1)
+case "$project_format" in
+	'' | [1-9] | [1-5][0-9] | 60) ;;
+	*) fail "project.pbxproj uses project format ${project_format:-unknown}, which older Xcode cannot read. Run Scripts/normalize-project-format.sh." ;;
+esac
+
 for entitlements_file in "$APP_ENTITLEMENTS" "$EXTENSION_ENTITLEMENTS"; do
 	if ! entitlement_is_true "$entitlements_file" com.apple.security.app-sandbox; then
 		fail "App Sandbox is not enabled: $entitlements_file"
